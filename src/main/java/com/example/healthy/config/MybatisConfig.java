@@ -12,8 +12,9 @@ import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import javax.sql.DataSource;
 
 @Configuration
-@MapperScan
+@MapperScan //추가코드 필요
 public class MybatisConfig {
+    //mapper 경로 설정 필요
     @Bean
     public SqlSessionFactory sqlSessionFactory(DataSource dataSource) throws Exception{
         SqlSessionFactoryBean factoryBean = new SqlSessionFactoryBean();
