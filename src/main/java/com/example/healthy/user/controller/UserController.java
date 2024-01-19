@@ -15,18 +15,4 @@ public class UserController {
     @Autowired
     UserService userService;
 
-    @GetMapping("join")
-    public String getAddUser(){
-        return "views/join";
-    }
-
-    @PostMapping("/join")
-    public ResponseEntity<String> addUser(@RequestBody User user) {
-        try {
-            userService.addUser(user);
-            return ResponseEntity.ok("views/main.js");
-        } catch (Exception e) {
-            return  ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("회원가입 중 오류가 발생했습니다.");
-        }
-    }
 }

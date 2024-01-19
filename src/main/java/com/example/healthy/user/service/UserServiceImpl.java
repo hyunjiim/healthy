@@ -2,11 +2,9 @@ package com.example.healthy.user.service;
 
 import com.example.healthy.user.dao.UserDao;
 import com.example.healthy.user.entity.User;
-//import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-
 import javax.transaction.Transactional;
 
 @Service
