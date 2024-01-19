@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.healthy.user.entity.UserMapper">
+    <insert id="insertUser" parameterType="com.example.healthy.user.entity.User">
+        <selectKey resultType="int" keyProperty="idx" order="BEFORE">
+            SELECT LAST_INSERT_ID() as idx
+        </selectKey>
+        INSERT INTO USER (
+        IDX
+        ,ID
+        ,PASSWORD
+        ,NAME
+        ,PHONE
+        ,EMAIL
+        ,GENDER
+        ,BIRTH
+        ,ADDRESS1
+        ,ADDRESS2
+        ,ADDRESS3
+        ,HEIGHT
+        ,WEIGHT
+        ,STATUS
+        ,SUBSCRIPTION
+        ,ENABLED
+        ) VALUES(
+        #{idx}
+        ,#{id}
+        ,#{password}
+        ,#{name}
+        ,#{phone}
+        ,#{email}
+        ,#{gender}
+        ,#{birth}
+        ,#{address1}
+        ,#{address2}
+        ,#{address3}
+        ,#{height}
+        ,#{weight}
+        ,1
+        ,0
+        ,1
+        )
+    </insert>
+
+
+    <resultMap type="com.example.healthy.user.entity.User" id="userResultMap">
+        <id column="id" property="id" />
+        <result column="idx" property="idx"/>
+        <result column="password" property="password"/>
+        <result column="name" property="name"/>
+        <result column="phone" property="phone"/>
+        <result column="email" property="email"/>
+        <result column="gender" property="gender"/>
+        <result column="birth" property="birth"/>
+        <result column="address1" property="address1"/>
+        <result column="address2" property="address2"/>
+        <result column="address3" property="address3"/>
+        <result column="height" property="height"/>
+        <result column="weight" property="weight"/>
+        <result column="status" property="status"/>
+        <result column="subscription" property="subscription"/>
+        <result column="subDay" property="subDay"/>
+        <result column="enabled" property="enabled"/>
+    </resultMap>
+
+    <select id="selectUser" resultType="userResultMap">
+        SELECT
+            IDX
+            ,ID
+            ,PASSWORD
+            ,NAME
+            ,PHONE
+            ,EMAIL
+            ,GENDER
+            ,BIRTH
+            ,ADDRESS1
+            ,ADDRESS2
+            ,ADDRESS3
+            ,HEIGHT
+            ,WEIGHT
+            ,STATUS
+            ,SUBSCRIPTION
+            ,SUB_DAY
+            ,ENABLED
+        FROM USER WHERE ID=#{id}
+    </select>
+
+</mapper>
