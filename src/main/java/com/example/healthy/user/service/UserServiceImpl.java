@@ -17,9 +17,9 @@ public class UserServiceImpl implements UserService {
     @Transactional(rollbackOn = Exception.class)
     @Override
     public void addUser(User user) {
-        String hashedPassword = bCryptPasswordEncoder.encode(user.getPassword());
-        user.setPassword(hashedPassword);
+       String hashedPassword = bCryptPasswordEncoder.encode(user.getPassword());
+       user.setPassword(hashedPassword);
 
-        userDao.insertUser(user);
+       userDao.insertUser(user);
     }
 }

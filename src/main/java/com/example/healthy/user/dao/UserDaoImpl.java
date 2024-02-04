@@ -14,12 +14,12 @@ public class UserDaoImpl implements UserDao{
 
     @Override
     public int insertUser(User user) {
-        return sqlSessionTemplate.insert("com.example.healthyhealthy.user.mapper.UserMapper.insertUser",user);
+        return sqlSessionTemplate.insert("com.example.healthy.user.mapper.UserMapper.insertUser",user);
     }
 
     @Override
     public User selectUser(String id) {
-        return sqlSessionTemplate.selectOne("com.example.healthyhealthy.user.mapper.UserMapper.selectUser", id);
+        return sqlSessionTemplate.selectOne("com.example.healthy.user.mapper.UserMapper.selectUser", id);
     }
 
 }
