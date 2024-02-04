@@ -1,5 +1,7 @@
-package com.example.healthy.user.entity;
+package com.example.healthy.user.service;
 
+import com.example.healthy.user.entity.User;
+import com.example.healthy.user.entity.UserAuth;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
