@@ -50,7 +50,7 @@ public class SpringSecurityConfig {
         http.addFilter(corsFilter());
         http
                 .authorizeHttpRequests(request -> request
-                        .requestMatchers("/join", "/login").permitAll()
+
                         .requestMatchers("/v2/api-docs",
                                 "/configuration/ui",
                                 "/swagger-resources/**",
@@ -58,6 +58,7 @@ public class SpringSecurityConfig {
                                 "/swagger-ui.html",
                                 "/webjars/**")
                         .permitAll()
+                        .requestMatchers("/**").permitAll()
                         .dispatcherTypeMatchers(DispatcherType.FORWARD).permitAll()
                         .anyRequest().authenticated()
                 )
@@ -81,6 +82,7 @@ public class SpringSecurityConfig {
         config.addAllowedHeader("*");
         config.addAllowedMethod("*");
         source.registerCorsConfiguration("/**", config);
+        config.addAllowedOrigin("http://localhost:3000");
         return new CorsFilter(source);
     }
 }
