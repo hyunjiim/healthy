@@ -8,6 +8,9 @@ import {Route, Routes} from "react-router-dom";
 import Main from "./view/main";
 import Question from "./view/question";
 import QuestionForm from "./view/questionform";
+import Crew from './view/crewreg';
+import CrewList from './view/crew';
+import CrewBoard from './view/crewdetail';
 
 function App() {
 
@@ -22,6 +25,16 @@ function App() {
             <Route path='/join' element={<JoinForm/>} />
             {/* 로그인 */}
             <Route path='/login' element={<LoginForm/>} />
+            {/* 크루 등록 */}
+            <Route path="/crew/reg" element={<Crew />} />
+            {/* 크루 목록 */}
+            <Route path="/crew" element={<CrewList />} />
+            {/* 크루 상세보기 */}
+            <Route path="/crew/detail" element={<CrewBoard />} />
+            {/* 크루 댓글달기 */}
+            {/*<Route path="/crew/comment" element={<Crew />} />*/}
+            {/* 크루 댓글수정 */}
+     {/*       <Route path="/crew/update/:idx" element={<Crew />} />*/}
         </Routes>
     );
 }

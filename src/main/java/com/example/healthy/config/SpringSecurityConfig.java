@@ -34,7 +34,7 @@ public class SpringSecurityConfig {
                 .cors(cors -> cors //기존에 CorsConfigurationSource를 빈으로 등록하여 CORS 설정
                         .configurationSource(request -> {
                             CorsConfiguration configuration = new CorsConfiguration();
-                            configuration.setAllowedOrigins(Arrays.asList("http://localhost:3000"));
+                            configuration.setAllowedOrigins(Arrays.asList("http://localhost:3002"));
                             configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE"));
                             configuration.setAllowedHeaders(Arrays.asList("Content-Type", "Authorization", "Accept"));
                             configuration.setAllowCredentials(true);  // Allow credentials 설정
