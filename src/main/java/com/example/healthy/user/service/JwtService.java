@@ -5,12 +5,14 @@ import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpHeaders;
+import org.springframework.stereotype.Component;
 
 import java.security.Key;
 import java.util.Date;
 
 //서명된 JWT를 생성하고 검증하는 클래스
 
+@Component
 public class JwtService {
     //토큰의 만료 시간을 밀리초 단위로 정의하기 위한 상수 선언
     static final long EXPIRATIONTIME = 86400000;
