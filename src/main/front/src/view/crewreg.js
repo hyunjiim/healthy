@@ -42,7 +42,7 @@ const Crew = () => {
         }
         try {
             // Axios를 사용하여 서버에 POST 요청 보내기
-            const response = await axios.post('http://localhost:3000/crew/reg', reg);
+            const response = await axios.post('http://localhost:3000/crew', reg);
             alert("response"+response);
             // 성공적으로 서버 응답을 받은 경우
             console.log(response);
