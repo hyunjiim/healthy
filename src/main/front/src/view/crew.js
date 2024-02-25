@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import {useEffect} from "react";
 
 const React = require('react');
 
@@ -7,15 +8,12 @@ const React = require('react');
 const CrewList = () => {
     const [crewList, setCrewList] = React.useState([]);
 
-    const getCrewList = async () => {
-        // const resp = (await axios.get('//localhost:3000/crew')).data
-        // console.log(resp.data)
-
-    }
-
-    React.useEffect(() => {
-        getCrewList();
+    useEffect(() => {
+        axios.get('/crew')
+            .then(response => setCrewList(response.data.crewList))
+            .catch(error => console.log(error));
     }, []);
+
     return (
         <>
             {/* 크루리스트 사이드*/}
@@ -89,25 +87,32 @@ const CrewList = () => {
                             <div className="row">
                                 <div className="col-lg-6 col-md-6 col-sm-6">
                                     <div className="blog__item">
-                                        {crewList.map((crew) => (
-                                            <div className="col-lg-6 col-md-6 col-sm-6" key={crew.img1}>
-                                                <div className="blog__item">
-                                                    <div className="blog__item__pic">
-                                                        <img src="img/blog/blog-2.jpg" alt="" />
-                                                    </div>
-                                                    <div className="blog__item__text">
-                                                        <ul>
-                                                            <li key={crew.regDate}><i className="fa fa-calendar-o"></i>{crew.regDate}</li>
-                                                            <li key={crew.count}><i className="fa fa-comment-o"></i> 모집인원 {crew.count}/{crew.enjoyCount}</li>
-                                                            <li><i className="fa fa-comment-o"></i> 찜</li>
-                                                        </ul>
-                                                        <h5><Link to="/crew/detail/${crew.idx}" key= {crew.subject}>{crew.subject}</Link></h5>
-                                                        <p key={crew.content}>{crew.content}내용 </p>
-                                                        <Link to="/crew/detail" className="blog__btn">참여하기</Link>
+                                        {crewList.map((crew, idx) => {
+                                            return (
+                                                <div className="col-lg-6 col-md-6 col-sm-6" key={crew.img1}>
+                                                    <div className="blog__item">
+                                                        <div className="blog__item__pic">
+                                                            <img src="img/blog/blog-2.jpg" alt=""/>
+                                                        </div>
+                                                        <div className="blog__item__text">
+                                                            <ul>
+                                                                <li key={crew.startDate}><i
+                                                                    className="fa fa-calendar-o"></i>{crew.startDate}</li>
+                                                                <li key={crew.count}><i
+                                                                    className="fa fa-comment-o"></i> 모집인원 {crew.count}/{crew.enjoyCount}
+                                                                </li>
+                                                                <li><i className="fa fa-comment-o"></i> 찜</li>
+                                                            </ul>
+                                                            <h5><Link to="/crew/detail/${crew.idx}"
+                                                                      key={crew.subject}>{crew.subject}</Link></h5>
+                                                            <p key={crew.content}>{crew.content}내용 </p>
+                                                            <Link to="/crew/detail" className="blog__btn">참여하기</Link>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                        ))}
+                                            )
+                                        })}
+
                                     </div>
                                 </div>
                                 {/* 페이징처리*/}

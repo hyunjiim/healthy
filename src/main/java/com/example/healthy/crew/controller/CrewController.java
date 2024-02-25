@@ -19,6 +19,8 @@ public class CrewController {
     public String crewList(Model model, Crew crew){
         List<Crew> crewList = crewService.selectCrewList();
 
+        log.info("crewList:{}",crewList);
+        System.out.printf("crewList"+crewList);
         model.addAttribute("crewList", crewList);
 
         return "crew.js";

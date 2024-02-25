@@ -45,28 +45,12 @@ public class SpringSecurityConfig {
     }
 
     @Bean
-<<<<<<< HEAD
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        return http
-                .csrf(csrf -> csrf.disable())
-                .cors(cors -> cors //기존에 CorsConfigurationSource를 빈으로 등록하여 CORS 설정
-                        .configurationSource(request -> {
-                            CorsConfiguration configuration = new CorsConfiguration();
-                            configuration.setAllowedOrigins(Arrays.asList("http://localhost:3002"));
-                            configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE"));
-                            configuration.setAllowedHeaders(Arrays.asList("Content-Type", "Authorization", "Accept"));
-                            configuration.setAllowCredentials(true);  // Allow credentials 설정
-                            return configuration;
-                        })
-                )
-=======
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.csrf(csrf -> csrf.csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()));
         http.addFilter(corsFilter());
         http
->>>>>>> 8bf4f597d1c99e2c5e775278221d4beb4c439932
                 .authorizeHttpRequests(request -> request
-                        .requestMatchers("/join", "/login").permitAll()
+
                         .requestMatchers("/v2/api-docs",
                                 "/configuration/ui",
                                 "/swagger-resources/**",
@@ -74,6 +58,7 @@ public class SpringSecurityConfig {
                                 "/swagger-ui.html",
                                 "/webjars/**")
                         .permitAll()
+                        .requestMatchers("/**").permitAll()
                         .dispatcherTypeMatchers(DispatcherType.FORWARD).permitAll()
                         .anyRequest().authenticated()
                 )
@@ -97,6 +82,7 @@ public class SpringSecurityConfig {
         config.addAllowedHeader("*");
         config.addAllowedMethod("*");
         source.registerCorsConfiguration("/**", config);
+        config.addAllowedOrigin("http://localhost:3000");
         return new CorsFilter(source);
     }
 }

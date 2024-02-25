@@ -6,9 +6,8 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-@Repository
 //크루 등록
-public interface CrewRepository extends JpaRepository<Crew, Integer> {
+public interface CrewRepository{
     int insertCrew(Crew crew);
     List<Crew> selectCrewList();
 }

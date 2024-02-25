@@ -6,17 +6,16 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import lombok.Data;
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
 import java.sql.Date;
 
-@Entity
+@RequiredArgsConstructor
 @Data
 @Setter
 @Getter
 public class Crew {
-    @Id //Primary key
-    @GeneratedValue(strategy = GenerationType.IDENTITY)//identity가 maria/mysql에서 사용
     private Integer idx;
     private Integer userIdx;
     private String subject;
@@ -24,11 +23,10 @@ public class Crew {
     private String content;
     private String img1;
     private String img2;
-    private Date creationDate;
+    private String creationDate;
     private Integer crewCount;
-    private Integer enjoyCount;
-    private Date endDate;
-    private Date startDate;
+    private String endDate;
+    private String startDate;
     private String location;
 
 
