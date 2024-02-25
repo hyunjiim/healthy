@@ -60,7 +60,7 @@ dependencies {
     annotationProcessor 'org.projectlombok:lombok'
     testImplementation 'org.springframework.security:spring-security-test'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
-
+    implementation 'org.springframework.boot:spring-boot-configuration-processor'
     //JWT : 리액트로 프론트엔드를 개발할 때 기본 인증을 이용할 수 없으므로 JWT 인증을 이용해야 함
     // => xxxxx.yyyyy.zzzzz와 같이 마침표로 구분된 세 부분으로 구성
     // => 첫 번째 부분(xxxxx) : 토큰의 유형과 해싱 알고리즘 정의 헤더

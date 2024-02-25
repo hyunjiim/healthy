@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import ReactDOM from 'react-dom';
-import axios from 'axios';
+import axios, {post} from 'axios';
 import qs from 'qs';
 import '../styles/css/bootstrap.min.css';
 import '../styles/css/font-awesome.min.css';
@@ -53,18 +53,6 @@ const JoinForm = () => {
     const [isHeight, setIsHeight] = useState(false);
     const [isWeight, setIsWeight] = useState(false);
 
-    const [csrfToken, setCsrfToken] = useState("");
-
-    useEffect(() => {
-        axios.get('http://localhost:8001/csrf')
-            .then(response => {
-                const fetchedCsrfToken = response.data.token;
-                setCsrfToken(fetchedCsrfToken);
-            })
-            .catch(error => {
-                console.error('토큰을 가져오는 중 에러 발생:', error);
-            });
-    }, []);
 
     const onChangeId = (e) => {
         const currentId = e.target.value;
@@ -209,7 +197,21 @@ const JoinForm = () => {
         setAddress3(newAddress3);
     }
 
-    const register = () => {
+    const register = (e) => {
+        const form = e.target
+        const id = form.id.value
+        const password = form.password.value
+        const name = form.name.value
+        const address1 = form.address1.value
+        const address2 = form.address2.value
+        const address3 = form.address3.value
+        const birth = form.birth.value
+        const gender = form.gender.value
+        const email = form.email.value
+        const phone = form.phone.value
+        const height = form.height.value
+        const weight = form.weight.value
+
         const joinBody = {
             id: id,
             password: password,
@@ -224,9 +226,11 @@ const JoinForm = () => {
             height: height,
             weight: weight
         };
+        axios.defaults.xsrfCookieName = 'XSRF-TOKEN';
+        axios.defaults.xsrfHeaderName = 'X-XSRF-TOKEN';
 
         axios
-            .post('/join', joinBody.json)
+            .post('/join', joinBody)
             .then((response) => {
                 console.log('응답:', response);
                 if(response.status == 200) {
@@ -262,7 +266,7 @@ const JoinForm = () => {
             <section className="checkout spad">
                 <div className="container">
                     <div className="checkout__form">
-                        <form action="#">
+                        <form className="join_form" method="post" onSubmit={ (e) => register(e)}>
                             <div className="row">
                                 <div className="col-lg-12">
                                     <div className='row'>
@@ -294,8 +298,8 @@ const JoinForm = () => {
 
                                     <div>
                                         <p style={{ color: 'black' }}>성 별<span style={{ color: 'red' }}>*&nbsp;&nbsp;</span><span style={{ color: 'red' }} className='genderMessage'>{genderMessage}</span></p>
-                                        남<input style={{ textAlign: 'left' }} type="radio" name="gender" onChange={(e) => setGender(e.target.value)} value="남" />&nbsp;&nbsp;&nbsp;
-                                        여<input style={{ textAlign: 'left' }} type="radio" name="gender" onChange={(e) => setGender(e.target.value)} value="여" />
+                                        남<input style={{ textAlign: 'left' }} type="radio" id="male" name="gender" onChange={(e) => setGender(e.target.value)} value="남" />&nbsp;&nbsp;&nbsp;
+                                        여<input style={{ textAlign: 'left' }} type="radio" id="female" name="gender" onChange={(e) => setGender(e.target.value)} value="여" />
                                     </div>
                                     <br />
                                     <div className="row">
@@ -328,7 +332,7 @@ const JoinForm = () => {
                                     </div>
                                     <div style={{ width: '100%', textAlign: 'center' }}>
 
-                                        <button type="button" className="site-btn" style={{ textAlign: 'center' }} onClick={() => register()}>회원가입</button>
+                                        <button type="submit" className="site-btn btn-join" style={{ textAlign: 'center' }} >회원가입</button>
                                     </div>
 
                                 </div>
@@ -366,15 +370,15 @@ const Postcode = ({ onChangeAddress }) => {
 
     return (
         <div className="checkout__input">
-            <input value={postcode} name='address1' readOnly placeholder="우편번호" />
+            <input value={postcode} id='address1' name='address1' readOnly placeholder="우편번호" />
             <button type='button' className='site-btn cart-btn cart-btn-right' onClick={toggle}>우편번호 검색</button>
             <br />
-            <input value={address} name='address2' readOnly placeholder="도로명 주소" />
+            <input value={address} id='address2' name='address2' readOnly placeholder="도로명 주소" />
             <br />
             <Modal isOpen={isOpen} ariaHideApp={false}>
                 <DaumPostcode onComplete={completeHandler} height="100%" />
             </Modal>
-            <input type="text" name='address3' onChange={changeHandler} value={addressDetail} placeholder="상세주소" />
+            <input type="text" id='address3' name='address3' onChange={changeHandler} value={addressDetail} placeholder="상세주소" />
             <br />
         </div>
     )
