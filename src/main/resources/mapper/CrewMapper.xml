@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.healthy.crew.mapper.CrewMapper">
+
+    <select id="selectCrewList" resultType="com.example.healthy.crew.entity.Crew">
+        SELECT * FROM crew
+    </select>
+
+    <!--  크루 등록 메소드  -->
+    <insert id="insertCrew" parameterType="Crew">
+        <selectKey resultType="int" keyProperty="idx" order="BEFORE">
+            SELECT MAX(TO_NUMBER(idx))+1 FROM crew
+        </selectKey>
+            INSERT INTO crew
+            VALUES (#{idx}
+                    , 1 <!--user_idx-->
+                    , #{subject}
+                    , #{category}
+                    , #{content}
+                    , #{img1}
+                    , #{img2}
+                    , NOW() <!--CRETE_DATE-->
+                    , #{crewCount}
+                    , #{endDate}
+                    , #{location}
+                    , #{enjoyCount}
+                    , #{startDate}
+    </insert>
+</mapper>
