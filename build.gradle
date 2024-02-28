@@ -28,7 +28,7 @@ dependencies {
     //1. log4jdbc를 통해 JDBC 쿼리를 로깅하여 디버깅 및 성능 분석
     implementation 'org.bgee.log4jdbc-log4j2:log4jdbc-log4j2-jdbc4.1:1.16'
     //2. MyBatis를 사용하기 위한 스타터 패키지 - 스프링부트 3.X 이상 버전 사용시 mybatis 3.0.1 버전을 사용해야 함
-    implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0.1'
+    implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0.3'
 
     //MariaDB
     //1. MariaDB 데이터베이스에 접근하기 위한 MariaDB JDBC 드라이버 의존성

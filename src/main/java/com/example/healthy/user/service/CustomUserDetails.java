@@ -25,7 +25,7 @@ public class CustomUserDetails implements UserDetails {
     private String name;
     private String phone;
     private String email;
-    private  String gender;
+    private int gender;
     private String birth;
     private String address1;
     private String address2;
@@ -35,7 +35,7 @@ public class CustomUserDetails implements UserDetails {
     private int status;
     private int subscription;
     private String subDay;
-    private String enabled;
+    private int enabled;
     private List<GrantedAuthority> userAuthList;
 
     // 생성자에 멤버 객체 정보 주입

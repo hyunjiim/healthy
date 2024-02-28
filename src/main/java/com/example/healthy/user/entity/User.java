@@ -16,7 +16,7 @@ public class User {
     private String name;
     private String phone;
     private String email;
-    private String gender;
+    private int gender;
     private String birth;
     private String address1;
     private String address2;
@@ -26,7 +26,7 @@ public class User {
     private int status;
     private int subscription;
     private String subDay;
-    private String enabled;
+    private int enabled;
 
     private List<UserAuth> userAuthList;
 }

@@ -197,20 +197,7 @@ const JoinForm = () => {
         setAddress3(newAddress3);
     }
 
-    const register = (e) => {
-        const form = e.target
-        const id = form.id.value
-        const password = form.password.value
-        const name = form.name.value
-        const address1 = form.address1.value
-        const address2 = form.address2.value
-        const address3 = form.address3.value
-        const birth = form.birth.value
-        const gender = form.gender.value
-        const email = form.email.value
-        const phone = form.phone.value
-        const height = form.height.value
-        const weight = form.weight.value
+    const register = () => {
 
         const joinBody = {
             id: id,
@@ -226,6 +213,7 @@ const JoinForm = () => {
             height: height,
             weight: weight
         };
+
         axios.defaults.xsrfCookieName = 'XSRF-TOKEN';
         axios.defaults.xsrfHeaderName = 'X-XSRF-TOKEN';
 
@@ -266,7 +254,6 @@ const JoinForm = () => {
             <section className="checkout spad">
                 <div className="container">
                     <div className="checkout__form">
-                        <form className="join_form" method="post" onSubmit={ (e) => register(e)}>
                             <div className="row">
                                 <div className="col-lg-12">
                                     <div className='row'>
@@ -298,8 +285,8 @@ const JoinForm = () => {
 
                                     <div>
                                         <p style={{ color: 'black' }}>성 별<span style={{ color: 'red' }}>*&nbsp;&nbsp;</span><span style={{ color: 'red' }} className='genderMessage'>{genderMessage}</span></p>
-                                        남<input style={{ textAlign: 'left' }} type="radio" id="male" name="gender" onChange={(e) => setGender(e.target.value)} value="남" />&nbsp;&nbsp;&nbsp;
-                                        여<input style={{ textAlign: 'left' }} type="radio" id="female" name="gender" onChange={(e) => setGender(e.target.value)} value="여" />
+                                        남<input style={{ textAlign: 'left' }} type="radio" id="male" name="gender" onChange={(e) => setGender(e.target.value)} value="1" />&nbsp;&nbsp;&nbsp;
+                                        여<input style={{ textAlign: 'left' }} type="radio" id="female" name="gender" onChange={(e) => setGender(e.target.value)} value="2" />
                                     </div>
                                     <br />
                                     <div className="row">
@@ -331,13 +318,11 @@ const JoinForm = () => {
                                         </div>
                                     </div>
                                     <div style={{ width: '100%', textAlign: 'center' }}>
-
-                                        <button type="submit" className="site-btn btn-join" style={{ textAlign: 'center' }} >회원가입</button>
+                                        <button type="button" className="site-btn btn-join" style={{ textAlign: 'center' }} onClick={(e) => register()}>회원가입</button>
                                     </div>
 
                                 </div>
                             </div>
-                        </form>
                     </div>
                 </div>
             </section>

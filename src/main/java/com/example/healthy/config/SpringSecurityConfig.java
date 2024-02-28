@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
@@ -46,11 +47,12 @@ public class SpringSecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http.csrf(csrf -> csrf.csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()));
+        http.csrf(csrf -> csrf
+                .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
+                .disable());
         http.addFilter(corsFilter());
         http
                 .authorizeHttpRequests(request -> request
-                        .requestMatchers("/join", "/login").permitAll()
                         .requestMatchers("/v2/api-docs",
                                 "/configuration/ui",
                                 "/swagger-resources/**",
@@ -58,6 +60,7 @@ public class SpringSecurityConfig {
                                 "/swagger-ui.html",
                                 "/webjars/**")
                         .permitAll()
+                        .requestMatchers("/**").permitAll()
                         .dispatcherTypeMatchers(DispatcherType.FORWARD).permitAll()
                         .anyRequest().authenticated()
                 )

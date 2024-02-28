@@ -50,6 +50,13 @@ public class UserController {
     @ResponseBody
     public ResponseEntity<Map<String, String>> addUser(@RequestBody User user) {
         System.out.println("addUser() 실행 : "+user.getId());
+        System.out.println("addUser() 실행 : "+user.getPassword());
+        System.out.println("addUser() 실행 : "+user.getName());
+        System.out.println("addUser() 실행 : "+user.getBirth());
+        System.out.println("addUser() 실행 : "+user.getEmail());
+        System.out.println("addUser() 실행 : "+user.getAddress1());
+        System.out.println("addUser() 실행 : "+user.getGender());
+
         try {
             System.out.println("addUser 실행");
             userService.addUser(user);
