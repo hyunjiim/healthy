@@ -7,7 +7,7 @@
     </select>
 
     <!--  크루 등록 메소드  -->
-    <insert id="insertCrew" parameterType="Crew">
+    <insert id="insertCrew" parameterType="com.example.healthy.crew.entity.Crew">
         <selectKey resultType="int" keyProperty="idx" order="BEFORE">
             SELECT MAX(TO_NUMBER(idx))+1 FROM crew
         </selectKey>
