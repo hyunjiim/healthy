@@ -5,14 +5,17 @@ import Header from "./layout/header";
 import Footer from "./layout/footer";
 import { BrowserRouter } from 'react-router-dom';
 import reportWebVitals from './reportWebVitals';
+import LoginContextProvider from "./contexts/LoginContextProvider";
 
 const root = createRoot(document.getElementById('root'));
 
 root.render(
     <BrowserRouter>
+        <LoginContextProvider>
         <Header />
         <App />
         <Footer />
+        </LoginContextProvider>
     </BrowserRouter>
 );
 

@@ -1,6 +1,12 @@
-import React from 'react';
-import { Link } from "react-router-dom";
+import React, {useContext} from 'react';
+import {Link} from "react-router-dom";
+import {useLogin} from "../contexts/LoginContextProvider";
+//import {LoginContext} from "../contexts/LoginContextProvider";
+
 const Header = () => {
+    // isLogin : 로그인 여부 - Y(true), N(false)
+    const { isLogin, logout } = useLogin();
+
     return (
         <>
             {/* Humberger Begin */}
@@ -15,30 +21,36 @@ const Header = () => {
                         <li><Link to="#"><i className="fa fa-shopping-bag"></i> <span>3</span></Link></li>
                     </ul>
                 </div>
-                <div className="humberger__menu__widget">
-                    <div className="header__top__right__language">
-                        <Link to="/mypage">마이페이지</Link>
-                    </div>
-                    <div className="header__top__right__auth">
-                        <Link to="#"><i className="fa fa-user"></i> 로그인/회원가입</Link>
-                    </div>
-                </div>
+
+                        <>
+                            <div className="humberger__menu__widget">
+                                <div className="header__top__right__language">
+                                    <Link to="/mypage">마이페이지</Link>
+                                </div>
+                                <div className="header__top__right__auth">
+                                    {!isLogin && <Link to="/login"><i className="fa fa-user"></i> 로그인</Link> }
+                                    {!isLogin && <Link to="/join"><i className="fa fa-user"></i> 회원가입</Link> }
+                                    {isLogin && <button onClick={ () => logout() }><i className="fa fa-user"></i> 로그아웃</button> }
+                                </div>
+                            </div>
+                        </>
+
                 <nav className="humberger__menu__nav mobile-menu">
                     <ul>
-                        <li className="active"><Link to="#" >Home</Link></li>
+                        <li className="active"><Link to="#">Home</Link></li>
                         <li><Link to="#">운동</Link></li>
                         <li><Link to="#">식단</Link>
                             <ul className="header__menu__dropdown">
-                                <li><Link to="#" >Shop Details</Link></li>
+                                <li><Link to="#">Shop Details</Link></li>
                                 <li><Link to="#">Shoping Cart</Link></li>
-                                <li><Link to="#">Check Out</Link></li >
-                                <li><Link to="#">Blog Details</Link></li >
-                            </ul >
-                        </li >
-                        <li><Link to="#" >크루모집</Link></li >
-                        <li><Link to="/question" >문의게시판</Link></li >
-                    </ul >
-                </nav >
+                                <li><Link to="#">Check Out</Link></li>
+                                <li><Link to="#">Blog Details</Link></li>
+                            </ul>
+                        </li>
+                        <li><Link to="#">크루모집</Link></li>
+                        <li><Link to="/question">문의게시판</Link></li>
+                    </ul>
+                </nav>
                 <div id="mobile-menu-wrap"></div>
                 <div className="header__top__right__social">
                     <Link to="#"><i className="fa fa-facebook"></i></Link>
@@ -46,7 +58,7 @@ const Header = () => {
                     <Link to="#"><i className="fa fa-linkedin"></i></Link>
                     <Link to="#"><i className="fa fa-pinterest-p"></i></Link>
                 </div>
-            </div >
+            </div>
 
             {/* //Humberger End */}
             {/* Header */}
@@ -63,11 +75,12 @@ const Header = () => {
                                     <div className="header__top__right__language">
                                         <div>마이페이지</div>
                                     </div>
-                                    <div className="header__top__right__auth">
-                                        <Link to="#">로그인/회원가입</Link>
+                                    <div className="header__top__right__language">
+                                        {!isLogin &&<Link to="/login">로그인</Link>}
+                                        {isLogin && <button onClick={ () => logout() }><i className="fa fa-user"></i> 로그아웃</button> }
                                     </div>
-                                    <div className="header__top__right__auth">
-                                        <Link to="#">로그아웃</Link>
+                                    <div className="header__top__right__language">
+                                        {!isLogin &&<Link to="/join">회원가입</Link>}
                                     </div>
                                 </div>
                             </div>
@@ -78,7 +91,7 @@ const Header = () => {
                     <div className="row">
                         <div className="col-lg-3">
                             <div className="header__logo">
-                                <Link to="#"><img src="img/logo.png" alt="#" /></Link>
+                                <Link to="#"><img src="img/logo.png" alt="#"/></Link>
                             </div>
                         </div>
                         <div className="col-lg-6">
@@ -94,11 +107,11 @@ const Header = () => {
                                             <li><Link to="#">Blog Details</Link></li>
                                         </ul>
                                     </li>
-                                    <li><Link to="#" >크루모집</Link></li>
+                                    <li><Link to="#">크루모집</Link></li>
                                     <li><Link to="#">문의게시판</Link></li>
                                 </ul>
-                            </nav >
-                        </div >
+                            </nav>
+                        </div>
                         <div class="col-lg-3">
                             <div class="header__cart">
                                 <ul>
@@ -108,12 +121,12 @@ const Header = () => {
                                 </ul>
                             </div>
                         </div>
-                    </div >
+                    </div>
                     <div className="humberger__open">
                         <i className="fa fa-bars"></i>
                     </div>
-                </div >
-            </header >
+                </div>
+            </header>
         </>
 
     );

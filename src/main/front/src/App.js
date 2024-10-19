@@ -11,8 +11,10 @@ import QuestionForm from "./view/questionform";
 import Crew from './view/crewreg';
 import CrewList from './view/crew';
 import CrewBoard from './view/crewdetail';
+import LoginContextProvider, {useLogin} from "./contexts/LoginContextProvider";
 
 function App() {
+    const { isLogin } = useLogin();
 
     return (
         <Routes>
@@ -22,9 +24,9 @@ function App() {
             {/* 문의게시판 등록 */}
             <Route path="/question/form" element={<QuestionForm />} />
             {/* 회원가입 */}
-            <Route path='/join' element={<JoinForm/>} />
+            {!isLogin && <Route path='/join' element={<JoinForm/>} />}
             {/* 로그인 */}
-            <Route path='/login' element={<LoginForm/>} />
+            {!isLogin && <Route path='/login' element={<LoginForm/>} />}
             {/* 크루 등록 */}
             <Route path="/crew/reg" element={<Crew />} />
             {/* 크루 목록 */}

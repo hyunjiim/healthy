@@ -1,6 +1,7 @@
 package com.example.healthy.user.dao;
 
 import com.example.healthy.user.entity.User;
+import com.example.healthy.user.entity.UserAuth;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -18,8 +19,28 @@ public class UserDaoImpl implements UserDao{
     }
 
     @Override
-    public User selectUser(String id) {
-        return sqlSessionTemplate.selectOne("com.example.healthy.user.mapper.UserMapper.selectUser", id);
+    public int insertUserAuth(UserAuth userAuth) {
+        return sqlSessionTemplate.insert("com.example.healthy.user.mapper.UserMapper.insertUserAuth", userAuth);
+    }
+
+    @Override
+    public int idCheck(String id) {
+        return sqlSessionTemplate.selectOne("com.example.healthy.user.mapper.UserMapper.idCheck", id);
+    }
+
+    @Override
+    public int emailCheck(String email) {
+        return sqlSessionTemplate.selectOne("com.example.healthy.user.mapper.UserMapper.emailCheck", email);
+    }
+
+    @Override
+    public User selectUserById(String id) {
+        return sqlSessionTemplate.selectOne("com.example.healthy.user.mapper.UserMapper.selectUserById", id);
+    }
+
+    @Override
+    public User selectUserByEmail(String email) {
+        return sqlSessionTemplate.selectOne("com.example.healthy.user.mapper.UserMapper.selectUserByEmail", email);
     }
 
 }

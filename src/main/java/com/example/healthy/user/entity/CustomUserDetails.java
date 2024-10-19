@@ -1,4 +1,4 @@
-package com.example.healthy.user.service;
+package com.example.healthy.user.entity;
 
 import com.example.healthy.user.entity.User;
 import com.example.healthy.user.entity.UserAuth;
@@ -10,6 +10,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
+
+//사용자 정보 DTO -> Spring Security에 맞는 형식으로 넘어주기 위해 CustomUser 사용
 
 @Getter
 @Setter
@@ -55,7 +58,7 @@ public class CustomUserDetails implements UserDetails {
         this.status = user.getStatus();
         this.subDay = user.getSubDay();
         this.enabled = user.getEnabled();
-        this.userAuthList = new ArrayList<>();
+        this.userAuthList = new ArrayList<GrantedAuthority>();
 
         for (UserAuth auth : user.getUserAuthList()) {
             userAuthList.add(new SimpleGrantedAuthority(auth.getAuth()));
@@ -65,37 +68,41 @@ public class CustomUserDetails implements UserDetails {
     //인증 사용자 권한 정보를 반환하는 메소드
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        List<GrantedAuthority> authList = userAuthList;
+
+        Collection<SimpleGrantedAuthority> roleList = authList.stream()
+                .map( (auth) -> new SimpleGrantedAuthority(auth.getAuthority()) )
+                .collect(Collectors.toList());
+        return roleList;
     }
 
     @Override
     public String getPassword() {
-        return null;
+        return password;
     }
 
     @Override
-    public String getUsername() {
-        return null;
-    }
+    public String getUsername() { return name; }
 
     @Override
     public boolean isAccountNonExpired() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isAccountNonLocked() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isCredentialsNonExpired() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isEnabled() {
-        return false;
+        //enabled != 0
+        return enabled == 0?false : true;
     }
 }
 

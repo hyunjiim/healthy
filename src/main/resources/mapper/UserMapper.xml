@@ -39,8 +39,18 @@
         )
     </insert>
 
+    <insert id="insertUserAuth" parameterType="com.example.healthy.user.entity.UserAuth">
+        INSERT INTO USER_AUTH (
+        ID
+        ,AUTH
+        ) VALUES(
+        #{id}
+        ,#{auth}
+        )
+    </insert>
+
     <resultMap type="com.example.healthy.user.entity.User" id="userResultMap">
-        <id column="id" property="id" />
+        <id column="id" property="id"/>
         <result column="idx" property="idx"/>
         <result column="password" property="password"/>
         <result column="name" property="name"/>
@@ -57,9 +67,20 @@
         <result column="subscription" property="subscription"/>
         <result column="subDay" property="subDay"/>
         <result column="enabled" property="enabled"/>
+        <collection property="userAuthList" select="selectUserAuthById" column="id"/>
     </resultMap>
 
-    <select id="selectUser" resultMap="userResultMap">
+    <!-- 권한 검색 -->
+    <select id="selectUserAuthById" resultType="com.example.healthy.user.entity.UserAuth">
+        SELECT
+        IDX
+        ,ID
+        ,AUTH
+        FROM USER_AUTH
+        WHERE ID = #{id}
+    </select>
+
+    <select id="selectUserById" resultMap="userResultMap">
         SELECT
             IDX
             ,ID
@@ -78,7 +99,45 @@
             ,SUBSCRIPTION
             ,SUB_DAY
             ,ENABLED
-        FROM USER WHERE ID=#{id}
+        FROM USER
+        WHERE ID=#{id}
+    </select>
+
+    <select id="selectUserByEmail" resultMap="userResultMap">
+        SELECT
+        IDX
+        ,ID
+        ,PASSWORD
+        ,NAME
+        ,PHONE
+        ,EMAIL
+        ,GENDER
+        ,BIRTH
+        ,ADDRESS1
+        ,ADDRESS2
+        ,ADDRESS3
+        ,HEIGHT
+        ,WEIGHT
+        ,STATUS
+        ,SUBSCRIPTION
+        ,SUB_DAY
+        ,ENABLED
+        FROM USER
+        WHERE EMAIL=#{email}
+    </select>
+
+    <!-- 아이디 중복검사 -->
+    <select id="idCheck" resultType="int">
+        SELECT COUNT(*)
+        FROM USER
+        WHERE ID = #{id}
+    </select>
+
+    <!-- 이메일 중복검사 -->
+    <select id="emailCheck" resultType="int">
+        SELECT COUNT(*)
+        FROM USER
+        WHERE EMAIL = #{email}
     </select>
 
 </mapper>
